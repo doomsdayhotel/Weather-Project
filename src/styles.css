@@ -1,0 +1,80 @@
+h5 {
+  font-weight: normal;
+  font-size: 32px;
+  text-align: center;
+  font-family: "Tillana", cursive;
+}
+h2 {
+  font-size: 64px;
+  text-align: center;
+  font-family: "Source Code Pro", monospace;
+}
+h3 {
+  font-weight: normal;
+  font-size: 48px;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+}
+h1 {
+  font-size: 96px;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+}
+h6 {
+  font-size: 28px;
+  font-weight: normal;
+  font-family: "Tillana", cursive;
+  font-weight: 500;
+}
+h4 {
+  font-size: 34px;
+  text-align: center;
+  font-family: "Averia Serif Libre", cursive;
+  font-weight: 700;
+}
+p {
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+#convert-to-C {
+  color: #ff9f1c;
+  font-size: 30px;
+}
+#convert-to-F {
+  color: #0b59ca;
+  font-size: 18px;
+}
+.convert-link {
+  text-decoration: none;
+  font-weight: 600;
+}
+.decrease-font {
+  font-size: 13px;
+}
+.icon {
+  font-size: 30px;
+  display: block;
+  text-align: right;
+}
+.form {
+  text-align: center;
+}
+.description {
+  text-align: center;
+}
+.today {
+  position: absolute;
+  left: 240px;
+}
+.temp {
+  position: relative;
+}
+.grey-out {
+  color: #7f7f7f;
+}
+.today-card {
+  padding-right: 15px;
+}
