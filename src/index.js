@@ -108,6 +108,9 @@ function showCurrentTemp(event) {
     let weatherDescription = document.querySelector("#description");
     weatherDescription.innerHTML = `${response.data.weather[0].description}`;
 
+    let weatherMain = document.querySelector("#main");
+    weatherMain.innerHTML = `${response.data.weather[0].main}`;
+
     let wind = document.querySelector("#wind");
     wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
 
@@ -199,6 +202,9 @@ function showInputTemp(event) {
     let weatherDescription = document.querySelector("#description");
     weatherDescription.innerHTML = `${response.data.weather[0].description}`;
 
+    let weatherMain = document.querySelector("#main");
+    weatherMain.innerHTML = `${response.data.weather[0].main}`;
+
     let wind = document.querySelector("#wind");
     wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
 
@@ -225,7 +231,7 @@ function showInputTemp(event) {
   }
 
   function showForecast(response) {
-    console.log(response.data);
+    //console.log(response.data);
 
     let firstMin = document.querySelector("#first-min");
     let firstMax = document.querySelector("#first-max");
