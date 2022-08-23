@@ -91,7 +91,7 @@ function showCurrentTemp(event) {
 
   function showWeather(response) {
 
-    console.log(response.data);
+    //console.log(response.data);
 
     let currentTemp = document.querySelector("#current-temp");
     let currentTempMin = document.querySelector("#current-temp-min");
@@ -245,56 +245,72 @@ function showInputTemp(event) {
     return `${hours}:${minutes} ${day} ${month} ${date}, ${year}`;
   }*/
 
-  function showWeather(response) {
-    let currentTemp = document.querySelector("#current-temp");
-    let currentTempMin = document.querySelector("#current-temp-min");
-    let currentTempMax = document.querySelector("#current-temp-max");
-
-    let currentTempResponse = Math.round(response.data.main.temp);
-    let currentTempMinResponse = Math.round(response.data.main.temp_min);
-    let currentTempMaxResponse = Math.round(response.data.main.temp_max);
-
-    currentTemp.innerHTML = `${currentTempResponse}°`;
-    currentTempMin.innerHTML = `${currentTempMinResponse}°`;
-    currentTempMax.innerHTML = `${currentTempMaxResponse}°`;
-
-    let currentLocation = document.querySelector("#current-city");
-    currentLocation.innerHTML = `${response.data.name}`;
-
-    let weatherDescription = document.querySelector("#description");
-    weatherDescription.innerHTML = `${response.data.weather[0].description}`;
-
-    let weatherMain = document.querySelector("#main");
-    weatherMain.innerHTML = `${response.data.weather[0].main}`;
-
-    let wind = document.querySelector("#wind");
-    wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
-
-    let humidity = document.querySelector("#humidity");
-    humidity.innerHTML = `${response.data.main.humidity}`;
-
-    let timestamp = response.data.sys.sunrise;
-    let date = new Date(timestamp * 1000);
-
-    let sunrise = document.querySelector("#sunrise");
-    sunrise.innerHTML = `${("0" + date.getHours()).slice(-2)}:${(
-      "0" + date.getMinutes()
-    ).slice(-2)}`;
-
-    let timestamp2 = response.data.sys.sunset;
-    let date2 = new Date(timestamp2 * 1000);
-
-    let sunset = document.querySelector("#sunset");
-    sunset.innerHTML = `${("0" + date2.getHours()).slice(-2)}:${(
-      "0" + date2.getMinutes()
-    ).slice(-2)}`;
+  function showLocation(response) {
 
     //show input city date & time
     //let currentTime = document.querySelector("#current-time");
     //currentTime.innerHTML = formatDate(response.data.dt * 1000)
 
-    //console.log(response.data);
-   // console.log(response.data.main.temp);
+    let currentLocation = document.querySelector("#current-city");
+    currentLocation.innerHTML = `${response.data.name}`;
+
+    function showMissing(response) {
+      let currentTemp = document.querySelector("#current-temp");
+      let currentTempMin = document.querySelector("#current-temp-min");
+      let currentTempMax = document.querySelector("#current-temp-max");
+
+      let currentTempResponse = Math.round(response.data.current.temp);
+      let currentTempMinResponse = Math.round(response.data.daily[0].temp.min);
+      let currentTempMaxResponse = Math.round(response.data.daily[0].temp.max);
+
+      currentTemp.innerHTML = `${currentTempResponse}°`;
+      currentTempMin.innerHTML = `${currentTempMinResponse}°`;
+      currentTempMax.innerHTML = `${currentTempMaxResponse}°`;
+
+      //let currentLocation = document.querySelector("#current-city");
+      //currentLocation.innerHTML = `${response.data.name}`;
+
+      let weatherDescription = document.querySelector("#description");
+      weatherDescription.innerHTML = `${response.data.current.weather[0].description}`;
+
+      let weatherMain = document.querySelector("#main");
+      weatherMain.innerHTML = `${response.data.daily[0].weather[0].description}`;
+
+      let wind = document.querySelector("#wind");
+      wind.innerHTML = Math.round(`${response.data.daily[0].wind_speed}` * 2.24);
+
+      let humidity = document.querySelector("#humidity");
+      humidity.innerHTML = `${response.data.daily[0].humidity}`;
+
+      let timestamp = response.data.current.sunrise;
+      let date = new Date(timestamp * 1000);
+
+      let sunrise = document.querySelector("#sunrise");
+      sunrise.innerHTML = `${("0" + date.getHours()).slice(-2)}:${(
+        "0" + date.getMinutes()
+      ).slice(-2)}`;
+
+      let timestamp2 = response.data.current.sunset;
+      let date2 = new Date(timestamp2 * 1000);
+
+      let sunset = document.querySelector("#sunset");
+      sunset.innerHTML = `${("0" + date2.getHours()).slice(-2)}:${(
+        "0" + date2.getMinutes()
+      ).slice(-2)}`;
+
+      console.log(response.data);
+    }
+
+
+    let lat = response.data.coord.lat;
+    let lon = response.data.coord.lon;
+
+    let apiKey = "3429d234020f7a7bf6be603b3db0217b";
+
+    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
+    axios.get(url).then(showMissing);
+
+   //console.log(response.data);
   }
 
   function showForecast(response) {
@@ -323,6 +339,9 @@ function showInputTemp(event) {
     fifthMax.innerHTML = `${Math.round(response.data.list[5].main.temp_max)}°`;
   }
 
+
+
+
   let changeCityInput = document.querySelector("#change-city-input");
   let inputValue = changeCityInput.value;
 
@@ -334,10 +353,12 @@ function showInputTemp(event) {
   let apiKey = "3429d234020f7a7bf6be603b3db0217b";
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrl).then(showLocation);
 
   let url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&appid=${apiKey}&units=metric`;
   axios.get(url2).then(showForecast);
+
+ 
 }
 
 let callInputCity = document.querySelector("#call-input-city");
