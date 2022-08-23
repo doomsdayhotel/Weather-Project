@@ -90,34 +90,37 @@ function showCurrentTemp(event) {
   event.preventDefault();
 
   function showWeather(response) {
+
+    console.log(response.data);
+
     let currentTemp = document.querySelector("#current-temp");
     let currentTempMin = document.querySelector("#current-temp-min");
     let currentTempMax = document.querySelector("#current-temp-max");
 
-    let currentTempResponse = Math.round(response.data.main.temp);
-    let currentTempMinResponse = Math.round(response.data.main.temp_min);
-    let currentTempMaxResponse = Math.round(response.data.main.temp_max);
+    let currentTempResponse = Math.round(response.data.current.temp);
+    let currentTempMinResponse = Math.round(response.data.daily[0].temp.min);
+    let currentTempMaxResponse = Math.round(response.data.daily[0].temp.max);
 
     currentTemp.innerHTML = `${currentTempResponse}°`;
     currentTempMin.innerHTML = `${currentTempMinResponse}°`;
     currentTempMax.innerHTML = `${currentTempMaxResponse}°`;
 
-    let currentLocation = document.querySelector("#current-city");
-    currentLocation.innerHTML = `${response.data.name}`;
+    /*let currentLocation = document.querySelector("#current-city");
+    currentLocation.innerHTML = `${response.data.name}`;*/
 
     let weatherDescription = document.querySelector("#description");
-    weatherDescription.innerHTML = `${response.data.weather[0].description}`;
+    weatherDescription.innerHTML = `${response.data.current.weather[0].description}`;
 
     let weatherMain = document.querySelector("#main");
-    weatherMain.innerHTML = `${response.data.weather[0].main}`;
+    weatherMain.innerHTML = `${response.data.daily[0].weather[0].description}`;
 
     let wind = document.querySelector("#wind");
-    wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
+    wind.innerHTML = Math.round(`${response.data.daily[0].wind_speed}` * 2.24);
 
     let humidity = document.querySelector("#humidity");
-    humidity.innerHTML = `${response.data.main.humidity}`;
+    humidity.innerHTML = `${response.data.daily[0].humidity}`;
 
-    let timestamp = response.data.sys.sunrise;
+    let timestamp = response.data.current.sunrise;
     let date = new Date(timestamp * 1000);
 
     let sunrise = document.querySelector("#sunrise");
@@ -125,7 +128,7 @@ function showCurrentTemp(event) {
       "0" + date.getMinutes()
     ).slice(-2)}`;
 
-    let timestamp2 = response.data.sys.sunset;
+    let timestamp2 = response.data.current.sunset;
     let date2 = new Date(timestamp2 * 1000);
 
     let sunset = document.querySelector("#sunset");
@@ -133,11 +136,22 @@ function showCurrentTemp(event) {
       "0" + date2.getMinutes()
     ).slice(-2)}`;
 
-    console.log(response.data);
+    let rainProb = document.querySelector("#chance");
+    rainProb.innerHTML = `${response.data.daily[0].pop}` * 100;
+
+    function round(num) {
+      var m = Number((Math.abs(num) * 100).toPrecision(15));
+      return Math.round(m) / 100 * Math.sign(num);
+  }
+
+    let precipitation = document.querySelector("#precipitation");
+    precipitation.innerHTML = round(`${response.data.daily[0].rain}` / 25.4);
+    
+
   }
 
   function showForecast(response) {
-    console.log(response.data);
+    //console.log(response.data);
 
     let firstMin = document.querySelector("#first-min");
     let firstMax = document.querySelector("#first-max");
@@ -162,15 +176,23 @@ function showCurrentTemp(event) {
     fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
   }
 
+  function showMissing(response) {
+    console.log(response.data);
+  }
+
   function retrievePosition(position) {
     let apiKey = "3429d234020f7a7bf6be603b3db0217b";
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    /*let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    axios.get(url).then(showWeather);*/
+
+    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showWeather);
 
     let url2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&&appid=${apiKey}&units=metric`;
     axios.get(url2).then(showForecast);
+    
   }
 
   navigator.geolocation.getCurrentPosition(retrievePosition);
@@ -181,7 +203,47 @@ callCurrentCity.addEventListener("click", showCurrentTemp);
 
 //search engine city name + display input city temp
 function showInputTemp(event) {
+
   event.preventDefault();
+
+  /*function formatDate(timestamp) {
+
+    let now = new Date(timestamp);
+    let year = now.getFullYear();
+
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+
+    if (hours < 10) {
+      hours = `0${hours}`;
+    }
+
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let day = days[now.getDay()];
+
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    let month = months[now.getMonth()];
+
+    return `${hours}:${minutes} ${day} ${month} ${date}, ${year}`;
+  }*/
 
   function showWeather(response) {
     let currentTemp = document.querySelector("#current-temp");
@@ -227,7 +289,12 @@ function showInputTemp(event) {
       "0" + date2.getMinutes()
     ).slice(-2)}`;
 
+    //show input city date & time
+    //let currentTime = document.querySelector("#current-time");
+    //currentTime.innerHTML = formatDate(response.data.dt * 1000)
+
     //console.log(response.data);
+   // console.log(response.data.main.temp);
   }
 
   function showForecast(response) {
