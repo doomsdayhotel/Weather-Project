@@ -105,9 +105,6 @@ function showCurrentTemp(event) {
     currentTempMin.innerHTML = `${currentTempMinResponse}°`;
     currentTempMax.innerHTML = `${currentTempMaxResponse}°`;
 
-    /*let currentLocation = document.querySelector("#current-city");
-    currentLocation.innerHTML = `${response.data.name}`;*/
-
     let weatherDescription = document.querySelector("#description");
     weatherDescription.innerHTML = `${response.data.current.weather[0].description}`;
 
@@ -142,11 +139,10 @@ function showCurrentTemp(event) {
     function round(num) {
       var m = Number((Math.abs(num) * 100).toPrecision(15));
       return Math.round(m) / 100 * Math.sign(num);
-  }
+    }
 
     let precipitation = document.querySelector("#precipitation");
     precipitation.innerHTML = round(`${response.data.daily[0].rain}` / 25.4);
-    
 
   }
 
@@ -176,23 +172,27 @@ function showCurrentTemp(event) {
     fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
   }
 
-  function showMissing(response) {
-    console.log(response.data);
+  function showLocation(response) {
+    let currentLocation = document.querySelector("#current-city");
+    currentLocation.innerHTML = `${response.data.name}`;
   }
+    
 
   function retrievePosition(position) {
     let apiKey = "3429d234020f7a7bf6be603b3db0217b";
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    /*let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-    axios.get(url).then(showWeather);*/
+ 
 
     let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showWeather);
 
     let url2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&&appid=${apiKey}&units=metric`;
     axios.get(url2).then(showForecast);
-    
+
+    let url3 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    axios.get(url3).then(showLocation);
+
   }
 
   navigator.geolocation.getCurrentPosition(retrievePosition);
@@ -342,3 +342,7 @@ function showInputTemp(event) {
 
 let callInputCity = document.querySelector("#call-input-city");
 callInputCity.addEventListener("click", showInputTemp);
+
+
+
+
