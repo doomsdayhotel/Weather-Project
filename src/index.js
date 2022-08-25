@@ -91,7 +91,7 @@ function showCurrentTemp(event) {
 
   function showWeather(response) {
 
-    //console.log(response.data);
+    console.log(response.data);
 
     let currentTemp = document.querySelector("#current-temp");
     let currentTempMin = document.querySelector("#current-temp-min");
@@ -143,6 +143,33 @@ function showCurrentTemp(event) {
 
     let precipitation = document.querySelector("#precipitation");
     precipitation.innerHTML = round(`${response.data.daily[0].rain}` / 25.4);
+
+
+    //change weather icon
+    //format: images/weather/sunny.png
+    let todayIcon = document.querySelector("#today");
+
+    let src;
+
+    if (response.data.current.weather[0].main == "Clouds" && response.data.current.weather[0].id < 803) {
+      src = "cloudy";
+    } else if (response.data.current.weather[0].main == "Clouds" && response.data.current.weather[0].id > 802) {
+      src = "cloudier";
+    } else if (response.data.current.weather[0].main == "Clear") {
+      src = "clear";
+    } else if (response.data.current.weather[0].main == "Atmosphere") {
+      src = "atmosphere";
+    } else if (response.data.current.weather[0].main == "Snow") {
+      src = "snow";
+    } else if (response.data.current.weather[0].main == "Rain") {
+      src = "rain";
+    } else if (response.data.current.weather[0].main == "Drizzle") {
+      src= "drizzle";
+    } else if (response.data.current.weather[0].main == "Thunderstorm") {
+      src = "thunderstorm";
+    }
+
+    todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
   }
 
@@ -297,6 +324,31 @@ function showInputTemp(event) {
       sunset.innerHTML = `${("0" + date2.getHours()).slice(-2)}:${(
         "0" + date2.getMinutes()
       ).slice(-2)}`;
+
+
+      let todayIcon = document.querySelector("#today");
+
+      let src;
+
+      if (response.data.current.weather[0].main == "Clouds" && response.data.current.weather[0].id < 803) {
+        src = "cloudy";
+      } else if (response.data.current.weather[0].main == "Clouds" && response.data.current.weather[0].id > 802) {
+        src = "cloudier";
+      } else if (response.data.current.weather[0].main == "Clear") {
+        src = "clear";
+      } else if (response.data.current.weather[0].main == "Atmosphere") {
+        src = "atmosphere";
+      } else if (response.data.current.weather[0].main == "Snow") {
+        src = "snow";
+      } else if (response.data.current.weather[0].main == "Rain") {
+        src = "rain";
+      } else if (response.data.current.weather[0].main == "Drizzle") {
+        src= "drizzle";
+      } else if (response.data.current.weather[0].main == "Thunderstorm") {
+        src = "thunderstorm";
+      }
+
+      todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
       console.log(response.data);
     }
