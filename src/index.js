@@ -86,12 +86,14 @@ let convertToC = document.querySelector("#convert-to-C");
 convertToC.addEventListener("click", toC);
 
 //display current city temp
-function showCurrentTemp(event) {
+function showCurrentCity(event) {
   event.preventDefault();
 
   function showWeather(response) {
 
     console.log(response.data);
+
+    //display current temp & weather
 
     let currentTemp = document.querySelector("#current-temp");
     let currentTempMin = document.querySelector("#current-temp-min");
@@ -145,7 +147,7 @@ function showCurrentTemp(event) {
     precipitation.innerHTML = round(`${response.data.daily[0].rain}` / 25.4);
 
 
-    //change weather icon
+    //change current weather icon
     //format: images/weather/sunny.png
     let todayIcon = document.querySelector("#today");
 
@@ -171,11 +173,20 @@ function showCurrentTemp(event) {
 
     todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
-  }
+    //show forecast description
+    let firstDescrption = document.querySelector("#first-description");
+    let secondDescrption = document.querySelector("#second-description");
+    let thirdDescrption = document.querySelector("#third-description");
+    let fourthDescrption = document.querySelector("#fourth-description");
+    let fifthDescrption = document.querySelector("#fifth-description");
 
-  function showForecast(response) {
-    //console.log(response.data);
+    firstDescrption.innerHTML = `${response.data.daily[1].weather[0].description}`;
+    secondDescrption.innerHTML = `${response.data.daily[2].weather[0].description}`;
+    thirdDescrption.innerHTML = `${response.data.daily[3].weather[0].description}`;
+    fourthDescrption.innerHTML = `${response.data.daily[4].weather[0].description}`;
+    fifthDescrption.innerHTML = `${response.data.daily[5].weather[0].description}`;
 
+    //show forecast temp
     let firstMin = document.querySelector("#first-min");
     let firstMax = document.querySelector("#first-max");
     let secondMin = document.querySelector("#second-min");
@@ -197,7 +208,46 @@ function showCurrentTemp(event) {
     fourthMax.innerHTML = `${Math.round(response.data.daily[4].temp.max)}°`;
     fifthMin.innerHTML = `${Math.round(response.data.daily[5].temp.min)}°`;
     fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
+
+
+
+    //show forecast icons
+    let forecastDays = ['filler', 'first', 'second', 'third', 'fourth', 'fifth'];
+    
+    let dailyWeather = response.data.daily;
+
+    function showIcon(element) {
+      //console.log(forecastDays[element]);
+
+      let icon = document.querySelector(`#${forecastDays[element]}-icon`);
+      let src;
+
+      if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id < 803) {
+        src = "cloudy";
+      } else if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id > 802) {
+        src = "cloudier";
+      } else if (dailyWeather[element].weather[0].main == "Clear") {
+        src = "clear";
+      } else if (dailyWeather[element].weather[0].main == "Atmosphere") {
+        src = "atmosphere";
+      } else if (dailyWeather[element].weather[0].main == "Snow") {
+        src = "snow";
+      } else if (dailyWeather[element].weather[0].main == "Rain") {
+        src = "rain";
+      } else if (dailyWeather[element].weather[0].main == "Drizzle") {
+        src= "drizzle";
+      } else if (dailyWeather[element].weather[0].main == "Thunderstorm") {
+        src = "thunderstorm";
+      }
+
+      icon.setAttribute('src', `images/weather/${src}.png`);
+    }
+
+    let fiveDays = [1, 2, 3, 4, 5];
+    fiveDays.forEach(showIcon); 
+
   }
+
 
   function showLocation(response) {
     let currentLocation = document.querySelector("#current-city");
@@ -214,8 +264,8 @@ function showCurrentTemp(event) {
     let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showWeather);
 
-    let url2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&&appid=${apiKey}&units=metric`;
-    axios.get(url2).then(showForecast);
+   // let url2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&&appid=${apiKey}&units=metric`;
+    //axios.get(url2).then(showForecast);
 
     let url3 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     axios.get(url3).then(showLocation);
@@ -226,7 +276,7 @@ function showCurrentTemp(event) {
 }
 
 let callCurrentCity = document.querySelector("#call-current-city");
-callCurrentCity.addEventListener("click", showCurrentTemp);
+callCurrentCity.addEventListener("click", showCurrentCity);
 
 //search engine city name + display input city temp
 function showInputTemp(event) {
@@ -350,7 +400,7 @@ function showInputTemp(event) {
 
       todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
-      console.log(response.data);
+      //console.log(response.data);
     }
 
 

@@ -54,6 +54,9 @@ p {
 #description {
   position:relative;
 }
+#change-font-weight {
+  font-weight: 600;
+}
 .convert-link {
   text-decoration: none;
   font-weight: 600;
