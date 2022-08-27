@@ -465,10 +465,11 @@ function showInputTemp(event) {
 }
 
 
-
-
 let callInputCity = document.querySelector("#call-input-city");
 callInputCity.addEventListener("click", showInputTemp);
+
+let callHiddenInputCity = document.querySelector("#call-input-city-hidden");
+callHiddenInputCity.addEventListener("click", showInputTemp);
 
 
 
