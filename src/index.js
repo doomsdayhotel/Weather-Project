@@ -401,6 +401,7 @@ function showInputTemp(event) {
       todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
       //console.log(response.data);
+
     }
 
 
@@ -463,8 +464,13 @@ function showInputTemp(event) {
  
 }
 
+
+
+
 let callInputCity = document.querySelector("#call-input-city");
 callInputCity.addEventListener("click", showInputTemp);
+
+
 
 
 
