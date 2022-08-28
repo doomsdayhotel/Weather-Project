@@ -173,6 +173,41 @@ function showCurrentCity(event) {
 
     todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
+     //show forecast icons
+     let forecastDays = ['filler', 'first', 'second', 'third', 'fourth', 'fifth'];
+    
+     let dailyWeather = response.data.daily;
+ 
+     function showIcon(element) {
+       //console.log(forecastDays[element]);
+ 
+       let icon = document.querySelector(`#${forecastDays[element]}-icon`);
+       let src;
+ 
+       if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id < 803) {
+         src = "cloudy";
+       } else if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id > 802) {
+         src = "cloudier";
+       } else if (dailyWeather[element].weather[0].main == "Clear") {
+         src = "clear";
+       } else if (dailyWeather[element].weather[0].main == "Atmosphere") {
+         src = "atmosphere";
+       } else if (dailyWeather[element].weather[0].main == "Snow") {
+         src = "snow";
+       } else if (dailyWeather[element].weather[0].main == "Rain") {
+         src = "rain";
+       } else if (dailyWeather[element].weather[0].main == "Drizzle") {
+         src= "drizzle";
+       } else if (dailyWeather[element].weather[0].main == "Thunderstorm") {
+         src = "thunderstorm";
+       }
+ 
+       icon.setAttribute('src', `images/weather/${src}.png`);
+     }
+ 
+     let fiveDays = [1, 2, 3, 4, 5];
+     fiveDays.forEach(showIcon); 
+
     //show forecast description
     let firstDescrption = document.querySelector("#first-description");
     let secondDescrption = document.querySelector("#second-description");
@@ -209,43 +244,51 @@ function showCurrentCity(event) {
     fifthMin.innerHTML = `${Math.round(response.data.daily[5].temp.min)}°`;
     fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
 
+    //show forecast dates
 
+    function formatDate(timestamp) {
 
-    //show forecast icons
-    let forecastDays = ['filler', 'first', 'second', 'third', 'fourth', 'fifth'];
-    
-    let dailyWeather = response.data.daily;
-
-    function showIcon(element) {
-      //console.log(forecastDays[element]);
-
-      let icon = document.querySelector(`#${forecastDays[element]}-icon`);
-      let src;
-
-      if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id < 803) {
-        src = "cloudy";
-      } else if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id > 802) {
-        src = "cloudier";
-      } else if (dailyWeather[element].weather[0].main == "Clear") {
-        src = "clear";
-      } else if (dailyWeather[element].weather[0].main == "Atmosphere") {
-        src = "atmosphere";
-      } else if (dailyWeather[element].weather[0].main == "Snow") {
-        src = "snow";
-      } else if (dailyWeather[element].weather[0].main == "Rain") {
-        src = "rain";
-      } else if (dailyWeather[element].weather[0].main == "Drizzle") {
-        src= "drizzle";
-      } else if (dailyWeather[element].weather[0].main == "Thunderstorm") {
-        src = "thunderstorm";
-      }
-
-      icon.setAttribute('src', `images/weather/${src}.png`);
+      let now = new Date(timestamp);
+      let date = now.getDate();
+  
+  
+      let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let day = days[now.getDay()];
+  
+      let months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+  
+      let month = months[now.getMonth()];
+  
+      return `${day}, ${month} ${date}`;
     }
 
-    let fiveDays = [1, 2, 3, 4, 5];
-    fiveDays.forEach(showIcon); 
+    let firstDate = document.querySelector("#first-date");
+    firstDate.innerHTML = formatDate(response.data.daily[1].dt * 1000);
 
+    let secondDate = document.querySelector("#second-date");
+    secondDate.innerHTML = formatDate(response.data.daily[2].dt * 1000);
+
+    let thirdDate = document.querySelector("#third-date");
+    thirdDate.innerHTML = formatDate(response.data.daily[3].dt * 1000);
+
+    let fourthDate = document.querySelector("#fourth-date");
+    fourthDate.innerHTML = formatDate(response.data.daily[4].dt * 1000);
+
+    let fifthDate = document.querySelector("#fifth-date");
+    fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
   }
 
 
@@ -326,7 +369,7 @@ function showInputTemp(event) {
 
     //show input city date & time
     //let currentTime = document.querySelector("#current-time");
-    //currentTime.innerHTML = formatDate(response.data.dt * 1000)
+    //currentTime.innerHTML = formatDate(response.data.dt * 1000);
 
     let currentLocation = document.querySelector("#current-city");
     currentLocation.innerHTML = `${response.data.name}`;
