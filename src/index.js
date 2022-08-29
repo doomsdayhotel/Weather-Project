@@ -172,6 +172,7 @@ function showCurrentCity(event) {
     }
 
     todayIcon.setAttribute('src', `images/weather/${src}.png`);
+    
 
      //show forecast icons
      let forecastDays = ['filler', 'first', 'second', 'third', 'fourth', 'fifth'];
@@ -374,7 +375,10 @@ function showInputTemp(event) {
     let currentLocation = document.querySelector("#current-city");
     currentLocation.innerHTML = `${response.data.name}`;
 
-    function showMissing(response) {
+    function showWeather(response) {
+
+      //show today weather
+
       let currentTemp = document.querySelector("#current-temp");
       let currentTempMin = document.querySelector("#current-temp-min");
       let currentTempMax = document.querySelector("#current-temp-max");
@@ -386,9 +390,6 @@ function showInputTemp(event) {
       currentTemp.innerHTML = `${currentTempResponse}°`;
       currentTempMin.innerHTML = `${currentTempMinResponse}°`;
       currentTempMax.innerHTML = `${currentTempMaxResponse}°`;
-
-      //let currentLocation = document.querySelector("#current-city");
-      //currentLocation.innerHTML = `${response.data.name}`;
 
       let weatherDescription = document.querySelector("#description");
       weatherDescription.innerHTML = `${response.data.current.weather[0].description}`;
@@ -443,25 +444,59 @@ function showInputTemp(event) {
 
       todayIcon.setAttribute('src', `images/weather/${src}.png`);
 
-      //console.log(response.data);
 
-    }
+      //show forecast
 
+      //show forecast icons
 
-    let lat = response.data.coord.lat;
-    let lon = response.data.coord.lon;
+     let forecastDays = ['filler', 'first', 'second', 'third', 'fourth', 'fifth'];
+    
+     let dailyWeather = response.data.daily;
+ 
+     function showIcon(element) {
+       //console.log(forecastDays[element]);
+ 
+       let icon = document.querySelector(`#${forecastDays[element]}-icon`);
+       let src;
+ 
+       if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id < 803) {
+         src = "cloudy";
+       } else if (dailyWeather[element].weather[0].main == "Clouds" && dailyWeather[element].weather[0].id > 802) {
+         src = "cloudier";
+       } else if (dailyWeather[element].weather[0].main == "Clear") {
+         src = "clear";
+       } else if (dailyWeather[element].weather[0].main == "Atmosphere") {
+         src = "atmosphere";
+       } else if (dailyWeather[element].weather[0].main == "Snow") {
+         src = "snow";
+       } else if (dailyWeather[element].weather[0].main == "Rain") {
+         src = "rain";
+       } else if (dailyWeather[element].weather[0].main == "Drizzle") {
+         src= "drizzle";
+       } else if (dailyWeather[element].weather[0].main == "Thunderstorm") {
+         src = "thunderstorm";
+       }
+ 
+       icon.setAttribute('src', `images/weather/${src}.png`);
+     }
+ 
+     let fiveDays = [1, 2, 3, 4, 5];
+     fiveDays.forEach(showIcon); 
 
-    let apiKey = "3429d234020f7a7bf6be603b3db0217b";
+    //show forecast description
+    let firstDescrption = document.querySelector("#first-description");
+    let secondDescrption = document.querySelector("#second-description");
+    let thirdDescrption = document.querySelector("#third-description");
+    let fourthDescrption = document.querySelector("#fourth-description");
+    let fifthDescrption = document.querySelector("#fifth-description");
 
-    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
-    axios.get(url).then(showMissing);
+    firstDescrption.innerHTML = `${response.data.daily[1].weather[0].description}`;
+    secondDescrption.innerHTML = `${response.data.daily[2].weather[0].description}`;
+    thirdDescrption.innerHTML = `${response.data.daily[3].weather[0].description}`;
+    fourthDescrption.innerHTML = `${response.data.daily[4].weather[0].description}`;
+    fifthDescrption.innerHTML = `${response.data.daily[5].weather[0].description}`;
 
-   //console.log(response.data);
-  }
-
-  function showForecast(response) {
-    //console.log(response.data);
-
+    //show forecast temp
     let firstMin = document.querySelector("#first-min");
     let firstMax = document.querySelector("#first-max");
     let secondMin = document.querySelector("#second-min");
@@ -473,20 +508,79 @@ function showInputTemp(event) {
     let fifthMin = document.querySelector("#fifth-min");
     let fifthMax = document.querySelector("#fifth-max");
 
-    firstMin.innerHTML = `${Math.round(response.data.list[1].main.temp_min)}°`;
-    firstMax.innerHTML = `${Math.round(response.data.list[1].main.temp_max)}°`;
-    secondMin.innerHTML = `${Math.round(response.data.list[2].main.temp_min)}°`;
-    secondMax.innerHTML = `${Math.round(response.data.list[2].main.temp_max)}°`;
-    thirdMin.innerHTML = `${Math.round(response.data.list[3].main.temp_min)}°`;
-    thirdMax.innerHTML = `${Math.round(response.data.list[3].main.temp_max)}°`;
-    fourthMin.innerHTML = `${Math.round(response.data.list[4].main.temp_min)}°`;
-    fourthMax.innerHTML = `${Math.round(response.data.list[4].main.temp_max)}°`;
-    fifthMin.innerHTML = `${Math.round(response.data.list[5].main.temp_min)}°`;
-    fifthMax.innerHTML = `${Math.round(response.data.list[5].main.temp_max)}°`;
+    firstMin.innerHTML = `${Math.round(response.data.daily[1].temp.min)}°`;
+    firstMax.innerHTML = `${Math.round(response.data.daily[1].temp.max)}°`;
+    secondMin.innerHTML = `${Math.round(response.data.daily[2].temp.min)}°`;
+    secondMax.innerHTML = `${Math.round(response.data.daily[2].temp.max)}°`;
+    thirdMin.innerHTML = `${Math.round(response.data.daily[3].temp.min)}°`;
+    thirdMax.innerHTML = `${Math.round(response.data.daily[3].temp.max)}°`;
+    fourthMin.innerHTML = `${Math.round(response.data.daily[4].temp.min)}°`;
+    fourthMax.innerHTML = `${Math.round(response.data.daily[4].temp.max)}°`;
+    fifthMin.innerHTML = `${Math.round(response.data.daily[5].temp.min)}°`;
+    fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
+
+    //show forecast dates
+
+    function formatDate(timestamp) {
+
+      let now = new Date(timestamp);
+      let date = now.getDate();
+  
+  
+      let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let day = days[now.getDay()];
+  
+      let months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+  
+      let month = months[now.getMonth()];
+  
+      return `${day}, ${month} ${date}`;
+    }
+
+    let firstDate = document.querySelector("#first-date");
+    firstDate.innerHTML = formatDate(response.data.daily[1].dt * 1000);
+
+    let secondDate = document.querySelector("#second-date");
+    secondDate.innerHTML = formatDate(response.data.daily[2].dt * 1000);
+
+    let thirdDate = document.querySelector("#third-date");
+    thirdDate.innerHTML = formatDate(response.data.daily[3].dt * 1000);
+
+    let fourthDate = document.querySelector("#fourth-date");
+    fourthDate.innerHTML = formatDate(response.data.daily[4].dt * 1000);
+
+    let fifthDate = document.querySelector("#fifth-date");
+    fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
+      
+
+      //console.log(response.data);
+
+    }
+
+
+    let lat = response.data.coord.lat;
+    let lon = response.data.coord.lon;
+
+    let apiKey = "3429d234020f7a7bf6be603b3db0217b";
+
+    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
+    axios.get(url).then(showWeather);
+
+   //console.log(response.data);
   }
-
-
-
 
   let changeCityInput = document.querySelector("#change-city-input");
   let inputValue = changeCityInput.value;
@@ -496,14 +590,11 @@ function showInputTemp(event) {
   //stolen(make multiple spaces one)
   inputValue = inputValue.replace(/\s\s+/g, " ");
 
+
   let apiKey = "3429d234020f7a7bf6be603b3db0217b";
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showLocation);
-
-  let url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&appid=${apiKey}&units=metric`;
-  axios.get(url2).then(showForecast);
-
  
 }
 
