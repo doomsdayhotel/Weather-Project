@@ -93,6 +93,9 @@ input.hidden {
 .grey-out {
   color: #7f7f7f;
 }
+.stats-icons {
+max-width: 105%;  
+}
 .today-card {
-  padding-right: 15px;
+  padding-right: 10px;
 }
