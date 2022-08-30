@@ -53,6 +53,10 @@ p {
 }
 #description {
   position:relative;
+  text-transform: capitalize;
+}
+#main {
+  text-transform: capitalize;
 }
 #change-font-weight {
   font-weight: 600;
