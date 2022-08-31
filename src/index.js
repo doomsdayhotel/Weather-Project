@@ -570,7 +570,7 @@ function showInputTemp(event) {
     fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
       
 
-      //console.log(response.data);
+      console.log(response.data);
 
     }
 

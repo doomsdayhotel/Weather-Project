@@ -86,6 +86,7 @@ input.hidden {
 }
 .description {
   text-align: center;
+  text-transform: capitalize;
 }
 .temp {
   position: relative;
@@ -98,4 +99,9 @@ max-width: 105%;
 }
 .today-card {
   padding-right: 10px;
+}
+.forecast-dates {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 200px;
 }
