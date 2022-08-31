@@ -54,6 +54,11 @@ function toF() {
 
   let C = document.querySelectorAll(".temp-convert");
   C.forEach(toFLoop);
+
+  document.getElementById("convert-to-F").style.pointerEvents = "none";
+  document.getElementById("convert-to-C").style.pointerEvents = "auto";
+
+  
   // console.log(C[0].innerHTML);
 
   // C[0].innerHTML = `${C[0].innerHTML.replace(/[^0-9]/g, "") * 1.8 + 32}°`;
@@ -80,7 +85,11 @@ function toC() {
 
   let F = document.querySelectorAll(".temp-convert");
   F.forEach(toCLoop);
+
+  document.getElementById("convert-to-C").style.pointerEvents = "none";
+  document.getElementById("convert-to-F").style.pointerEvents = "auto";
 }
+
 
 let convertToC = document.querySelector("#convert-to-C");
 convertToC.addEventListener("click", toC);
