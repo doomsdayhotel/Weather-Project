@@ -39,6 +39,14 @@ p {
   font-weight: 500;
   font-size: 18px;
 }
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: .4;
+}
 #convert-to-C {
   color: #ff9f1c;
   font-size: 30px;
@@ -67,6 +75,9 @@ p {
 }
 .decrease-font {
   font-size: 13px;
+}
+.card {
+  background-color: transparent;
 }
 .icon {
   font-size: 30px;
