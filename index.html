@@ -27,7 +27,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <video autoplay muted loop id="myVideo">
+    <video autoplay muted loop id="background-video">
       <source src="videos/cloudy2.mp4" type="video/mp4">
     </video>
     <div class="card mt-3 border-0">
@@ -130,16 +130,19 @@
                     type="submit"
                     value="Current location"
                     id="call-current-city"
+                    class="form-buttons"
                   />
                   <input
                     type="search"
                     placeholder="New York"
                     id="change-city-input"
+                    class="form-text"
                   />
                   <input
                     type="submit"
                     value="Change location"
                     id="call-input-city"
+                    class="form-buttons"
                   />
                 </p>
               </form>

@@ -40,10 +40,10 @@ currentTime.innerHTML = `${hours}:${minutes} ${day} ${month} ${date}, ${year}`;
 
 // C to F
 function toF() {
-  convertToF.style.fontSize = "30px";
-  convertToF.style.color = "#ff9f1c";
+  convertToF.style.fontSize = "40px";
+  convertToF.style.color = "#EB7900";
 
-  convertToC.style.fontSize = "18px";
+  convertToC.style.fontSize = "25px";
   convertToC.style.color = "#0D6DFD";
 
   function toFLoop(loopElement) {
@@ -71,10 +71,10 @@ convertToF.addEventListener("click", toF);
 
 //F to C
 function toC() {
-  convertToC.style.fontSize = "30px";
-  convertToC.style.color = "#ff9f1c";
+  convertToC.style.fontSize = "40px";
+  convertToC.style.color = "#EB7900";
 
-  convertToF.style.fontSize = "18px";
+  convertToF.style.fontSize = "25px";
   convertToF.style.color = "#0B59CA";
 
   function toCLoop(loopElement) {
@@ -299,6 +299,36 @@ function showCurrentCity(event) {
 
     let fifthDate = document.querySelector("#fifth-date");
     fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
+
+
+
+    //show backgrpund
+
+    let background = document.getElementById('background-video');
+    let bgSrc;
+
+     if (response.data.current.weather[0].main == "Clouds") {
+      bgSrc = "cloudy2";
+    } else if (response.data.current.weather[0].main == "Clear") {
+      bgSrc = "clear3";
+    } else if (response.data.current.weather[0].main == "Atmosphere") {
+      bgSrc = "atmosphere3";
+    } else if (response.data.current.weather[0].main == "Snow") {
+      bgSrc = "snow2";
+    } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
+      bgSrc = "rain2";
+    } else if (response.data.current.weather[0].main == "Thunderstorm") {
+      bgSrc = "thunderstorm1";
+    }
+
+     //background.setAttribute('src', `videos/${bgSrc}.mp4`);
+
+     background.src = `videos/${bgSrc}.mp4`;
+
+     console.log(background.src)
+
+     background.play();
+
   }
 
 
@@ -577,9 +607,36 @@ function showInputTemp(event) {
 
     let fifthDate = document.querySelector("#fifth-date");
     fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
+
+
+    //show background video (same loop)
+    /*let background = document.getElementById('background-video');
+    let bgSrc;
+
+    if (response.data.current.weather[0].main == "Clouds") {
+      bgSrc = "cloudy2";
+    } else if (response.data.current.weather[0].main == "Clear") {
+      bgSrc = "clear3";
+    } else if (response.data.current.weather[0].main == "Atmosphere") {
+      bgSrc = "atmosphere3";
+    } else if (response.data.current.weather[0].main == "Snow") {
+      bgSrc = "snow2";
+    } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
+      bgSrc = "rain2";
+    } else if (response.data.current.weather[0].main == "Thunderstorm") {
+      bgSrc = "thunderstorm1";
+    }
+
+     //background.setAttribute('src', `videos/${bgSrc}.mp4`);
+
+     background.src = `videos/${bgSrc}.mp4`;
+
+     console.log(background.src)
+
+     background.play();*/
       
 
-      console.log(response.data);
+    //console.log(response.data);
 
     }
 
@@ -849,6 +906,38 @@ axios.get(url).then(showWeather);
 let url3 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 axios.get(url3).then(showLocation);
 
+//default nyc background video
+function showBackground(response) {
+
+     let background = document.getElementById('background-video');
+     let bgSrc;
+
+     if (response.data.current.weather[0].main == "Clouds") {
+      bgSrc = "cloudy2";
+    } else if (response.data.current.weather[0].main == "Clear") {
+      bgSrc = "clear3";
+    } else if (response.data.current.weather[0].main == "Atmosphere") {
+      bgSrc = "atmosphere3";
+    } else if (response.data.current.weather[0].main == "Snow") {
+      bgSrc = "snow2";
+    } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
+      bgSrc = "rain2";
+    } else if (response.data.current.weather[0].main == "Thunderstorm") {
+      bgSrc = "thunderstorm1";
+    }
+
+     //background.setAttribute('src', `videos/${bgSrc}.mp4`);
+
+     background.src = `videos/${bgSrc}.mp4`;
+
+     background.play();
+
+     //console.log(background);
+
+  }
+
+     let url4 = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`;
+     axios.get(url4).then(showBackground);
 
 
 

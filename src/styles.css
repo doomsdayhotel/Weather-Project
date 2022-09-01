@@ -39,7 +39,7 @@ p {
   font-weight: 500;
   font-size: 18px;
 }
-#myVideo {
+#background-video {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -48,12 +48,12 @@ p {
   opacity: .4;
 }
 #convert-to-C {
-  color: #ff9f1c;
-  font-size: 30px;
+  color: #EB7900;
+  font-size: 40px;
 }
 #convert-to-F {
   color: #0b59ca;
-  font-size: 18px;
+  font-size: 25px;
 }
 #today {
   position: absolute;
@@ -110,6 +110,23 @@ max-width: 105%;
 }
 .today-card {
   padding-right: 10px;
+}
+.form-buttons {
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.7);
+  padding: 10px auto;
+  border: 1px solid #7F7F7F;
+  padding: 2px 15px;
+}
+.form-buttons:hover {
+  background-color: rgba(255,255,255,0.9);
+}
+.form-text {
+  border-radius: 3px;
+  background-color: white;
+  padding: 10px auto;
+  border: 1px solid #7F7F7F;
+  padding: 1px 10px;
 }
 .forecast-dates {
   vertical-align: middle;
