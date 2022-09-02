@@ -446,21 +446,75 @@ function showInputTemp(event) {
       let humidity = document.querySelector("#humidity");
       humidity.innerHTML = `${response.data.daily[0].humidity}`;
 
+      //sunset and sunrise (timezone conversion)
+
+      let offset = response.data.timezone_offset;
+
       let timestamp = response.data.current.sunrise;
       let date = new Date(timestamp * 1000);
 
       let sunrise = document.querySelector("#sunrise");
-      sunrise.innerHTML = `${("0" + date.getHours()).slice(-2)}:${(
+      /*sunrise.innerHTML = `${("0" + date.getHours()).slice(-2)}:${(
         "0" + date.getMinutes()
-      ).slice(-2)}`;
+      ).slice(-2)}`;*/
+      sunrise.innerHTML = convertDateSun(date);
 
       let timestamp2 = response.data.current.sunset;
       let date2 = new Date(timestamp2 * 1000);
 
       let sunset = document.querySelector("#sunset");
-      sunset.innerHTML = `${("0" + date2.getHours()).slice(-2)}:${(
+      /*sunset.innerHTML = `${("0" + date2.getHours()).slice(-2)}:${(
         "0" + date2.getMinutes()
-      ).slice(-2)}`;
+      ).slice(-2)}`;*/
+      sunset.innerHTML = convertDateSun(date2);
+
+      function convertDateSun(timestamp) {
+
+        let now = new Date(timestamp);
+
+        let months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        
+        let month = months[now.getMonth()];
+
+        //convert from est/edt to utc
+
+        //est or edt
+
+        if (month == "Nov" || month == "Dec" || month == "Jan" || month == "Feb" || month == "Mar") {
+          toUTC = 5;
+        } else {
+          toUTC = 4;
+        }
+
+        let hours = now.getHours() + toUTC + offset / 3600;
+        let minutes = now.getMinutes() + toUTC + offset / 3600;
+        
+        if (minutes < 10) {
+          minutes = `0${minutes}`;
+        }
+        
+        if (hours < 10) {
+          hours = `0${hours}`;
+        }
+    
+        return `${hours}:${minutes}`;
+      }
+
+
+      test = date2.getTime();
 
 
       let todayIcon = document.querySelector("#today");
@@ -621,7 +675,7 @@ function showInputTemp(event) {
         bgSrc = "atmosphere3";
       } else if (response.data.current.weather[0].main == "Snow") {
         bgSrc = "snow2";
-      } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
+      } else if (response.data.current.weather[0].main == "Rain" || response.data.current.weather[0].main == "Drizzle") {
         bgSrc = "rain2";
       } else if (response.data.current.weather[0].main == "Thunderstorm") {
         bgSrc = "thunderstorm1";
@@ -636,7 +690,7 @@ function showInputTemp(event) {
       background.play();
         
 
-      //console.log(response.data);
+      console.log(response.data);
 
     }
 
