@@ -325,9 +325,9 @@ function showCurrentCity(event) {
 
      background.src = `videos/${bgSrc}.mp4`;
 
-     console.log(background.src)
-
      background.play();
+
+     //console.log(background.src);
 
   }
 
@@ -526,117 +526,117 @@ function showInputTemp(event) {
      let fiveDays = [1, 2, 3, 4, 5];
      fiveDays.forEach(showIcon); 
 
-    //show forecast description
-    let firstDescrption = document.querySelector("#first-description");
-    let secondDescrption = document.querySelector("#second-description");
-    let thirdDescrption = document.querySelector("#third-description");
-    let fourthDescrption = document.querySelector("#fourth-description");
-    let fifthDescrption = document.querySelector("#fifth-description");
+      //show forecast description
+      let firstDescrption = document.querySelector("#first-description");
+      let secondDescrption = document.querySelector("#second-description");
+      let thirdDescrption = document.querySelector("#third-description");
+      let fourthDescrption = document.querySelector("#fourth-description");
+      let fifthDescrption = document.querySelector("#fifth-description");
 
-    firstDescrption.innerHTML = `${response.data.daily[1].weather[0].description}`;
-    secondDescrption.innerHTML = `${response.data.daily[2].weather[0].description}`;
-    thirdDescrption.innerHTML = `${response.data.daily[3].weather[0].description}`;
-    fourthDescrption.innerHTML = `${response.data.daily[4].weather[0].description}`;
-    fifthDescrption.innerHTML = `${response.data.daily[5].weather[0].description}`;
+      firstDescrption.innerHTML = `${response.data.daily[1].weather[0].description}`;
+      secondDescrption.innerHTML = `${response.data.daily[2].weather[0].description}`;
+      thirdDescrption.innerHTML = `${response.data.daily[3].weather[0].description}`;
+      fourthDescrption.innerHTML = `${response.data.daily[4].weather[0].description}`;
+      fifthDescrption.innerHTML = `${response.data.daily[5].weather[0].description}`;
 
-    //show forecast temp
-    let firstMin = document.querySelector("#first-min");
-    let firstMax = document.querySelector("#first-max");
-    let secondMin = document.querySelector("#second-min");
-    let secondMax = document.querySelector("#second-max");
-    let thirdMin = document.querySelector("#third-min");
-    let thirdMax = document.querySelector("#third-max");
-    let fourthMin = document.querySelector("#fourth-min");
-    let fourthMax = document.querySelector("#fourth-max");
-    let fifthMin = document.querySelector("#fifth-min");
-    let fifthMax = document.querySelector("#fifth-max");
+      //show forecast temp
+      let firstMin = document.querySelector("#first-min");
+      let firstMax = document.querySelector("#first-max");
+      let secondMin = document.querySelector("#second-min");
+      let secondMax = document.querySelector("#second-max");
+      let thirdMin = document.querySelector("#third-min");
+      let thirdMax = document.querySelector("#third-max");
+      let fourthMin = document.querySelector("#fourth-min");
+      let fourthMax = document.querySelector("#fourth-max");
+      let fifthMin = document.querySelector("#fifth-min");
+      let fifthMax = document.querySelector("#fifth-max");
 
-    firstMin.innerHTML = `${Math.round(response.data.daily[1].temp.min)}°`;
-    firstMax.innerHTML = `${Math.round(response.data.daily[1].temp.max)}°`;
-    secondMin.innerHTML = `${Math.round(response.data.daily[2].temp.min)}°`;
-    secondMax.innerHTML = `${Math.round(response.data.daily[2].temp.max)}°`;
-    thirdMin.innerHTML = `${Math.round(response.data.daily[3].temp.min)}°`;
-    thirdMax.innerHTML = `${Math.round(response.data.daily[3].temp.max)}°`;
-    fourthMin.innerHTML = `${Math.round(response.data.daily[4].temp.min)}°`;
-    fourthMax.innerHTML = `${Math.round(response.data.daily[4].temp.max)}°`;
-    fifthMin.innerHTML = `${Math.round(response.data.daily[5].temp.min)}°`;
-    fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
+      firstMin.innerHTML = `${Math.round(response.data.daily[1].temp.min)}°`;
+      firstMax.innerHTML = `${Math.round(response.data.daily[1].temp.max)}°`;
+      secondMin.innerHTML = `${Math.round(response.data.daily[2].temp.min)}°`;
+      secondMax.innerHTML = `${Math.round(response.data.daily[2].temp.max)}°`;
+      thirdMin.innerHTML = `${Math.round(response.data.daily[3].temp.min)}°`;
+      thirdMax.innerHTML = `${Math.round(response.data.daily[3].temp.max)}°`;
+      fourthMin.innerHTML = `${Math.round(response.data.daily[4].temp.min)}°`;
+      fourthMax.innerHTML = `${Math.round(response.data.daily[4].temp.max)}°`;
+      fifthMin.innerHTML = `${Math.round(response.data.daily[5].temp.min)}°`;
+      fifthMax.innerHTML = `${Math.round(response.data.daily[5].temp.max)}°`;
 
-    //show forecast dates
+      //show forecast dates
 
-    function formatDate(timestamp) {
+      function formatDate(timestamp) {
 
-      let now = new Date(timestamp);
-      let date = now.getDate();
-  
-  
-      let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      let day = days[now.getDay()];
-  
-      let months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-  
-      let month = months[now.getMonth()];
-  
-      return `${day}, ${month} ${date}`;
-    }
+        let now = new Date(timestamp);
+        let date = now.getDate();
+    
+    
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        let day = days[now.getDay()];
+    
+        let months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+    
+        let month = months[now.getMonth()];
+    
+        return `${day}, ${month} ${date}`;
+      }
 
-    let firstDate = document.querySelector("#first-date");
-    firstDate.innerHTML = formatDate(response.data.daily[1].dt * 1000);
+      let firstDate = document.querySelector("#first-date");
+      firstDate.innerHTML = formatDate(response.data.daily[1].dt * 1000);
 
-    let secondDate = document.querySelector("#second-date");
-    secondDate.innerHTML = formatDate(response.data.daily[2].dt * 1000);
+      let secondDate = document.querySelector("#second-date");
+      secondDate.innerHTML = formatDate(response.data.daily[2].dt * 1000);
 
-    let thirdDate = document.querySelector("#third-date");
-    thirdDate.innerHTML = formatDate(response.data.daily[3].dt * 1000);
+      let thirdDate = document.querySelector("#third-date");
+      thirdDate.innerHTML = formatDate(response.data.daily[3].dt * 1000);
 
-    let fourthDate = document.querySelector("#fourth-date");
-    fourthDate.innerHTML = formatDate(response.data.daily[4].dt * 1000);
+      let fourthDate = document.querySelector("#fourth-date");
+      fourthDate.innerHTML = formatDate(response.data.daily[4].dt * 1000);
 
-    let fifthDate = document.querySelector("#fifth-date");
-    fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
+      let fifthDate = document.querySelector("#fifth-date");
+      fifthDate.innerHTML = formatDate(response.data.daily[5].dt * 1000);
 
 
-    //show background video (same loop)
-    /*let background = document.getElementById('background-video');
-    let bgSrc;
+      //show background video (same loop)
+      let background = document.getElementById('background-video');
+      let bgSrc;
 
-    if (response.data.current.weather[0].main == "Clouds") {
-      bgSrc = "cloudy2";
-    } else if (response.data.current.weather[0].main == "Clear") {
-      bgSrc = "clear3";
-    } else if (response.data.current.weather[0].main == "Atmosphere") {
-      bgSrc = "atmosphere3";
-    } else if (response.data.current.weather[0].main == "Snow") {
-      bgSrc = "snow2";
-    } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
-      bgSrc = "rain2";
-    } else if (response.data.current.weather[0].main == "Thunderstorm") {
-      bgSrc = "thunderstorm1";
-    }
+      if (response.data.current.weather[0].main == "Clouds") {
+        bgSrc = "cloudy2";
+      } else if (response.data.current.weather[0].main == "Clear") {
+        bgSrc = "clear3";
+      } else if (response.data.current.weather[0].main == "Atmosphere") {
+        bgSrc = "atmosphere3";
+      } else if (response.data.current.weather[0].main == "Snow") {
+        bgSrc = "snow2";
+      } else if (response.data.current.weather[0].main == "Rain" || esponse.data.current.weather[0].main == "Drizzle") {
+        bgSrc = "rain2";
+      } else if (response.data.current.weather[0].main == "Thunderstorm") {
+        bgSrc = "thunderstorm1";
+      }
 
-     //background.setAttribute('src', `videos/${bgSrc}.mp4`);
+      //background.setAttribute('src', `videos/${bgSrc}.mp4`);
 
-     background.src = `videos/${bgSrc}.mp4`;
+      background.src = `videos/${bgSrc}.mp4`;
 
-     console.log(background.src)
+      //console.log(background.src)
 
-     background.play();*/
-      
+      background.play();
+        
 
-    //console.log(response.data);
+      //console.log(response.data);
 
     }
 

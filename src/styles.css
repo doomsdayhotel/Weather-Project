@@ -103,7 +103,7 @@ input.hidden {
   position: relative;
 }
 .grey-out {
-  color: #7f7f7f;
+  color: rgba(75, 75, 75);
 }
 .stats-icons {
 max-width: 105%;  
@@ -113,20 +113,23 @@ max-width: 105%;
 }
 .form-buttons {
   border-radius: 3px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.6);
   padding: 10px auto;
   border: 1px solid #7F7F7F;
   padding: 2px 15px;
+  font-size: 20px;
 }
 .form-buttons:hover {
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255,255,255,0.8);
 }
 .form-text {
   border-radius: 3px;
-  background-color: white;
+  background-color: rgba(255,255,255,0.9);
   padding: 10px auto;
   border: 1px solid #7F7F7F;
-  padding: 1px 10px;
+  padding: 2px 15px;
+  color: black;
+  font-size: 18px;
 }
 .forecast-dates {
   vertical-align: middle;
