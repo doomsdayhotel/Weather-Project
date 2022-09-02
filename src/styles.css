@@ -59,6 +59,11 @@ p {
   position: absolute;
   left: 250px;
 }
+#local-time {
+  color: #4B4B4B;
+  font-size: 20px;
+  font-family: "Tillana", cursive;
+}
 #description {
   position:relative;
   text-transform: capitalize;
@@ -116,7 +121,7 @@ max-width: 105%;
   background-color: rgba(255,255,255,0.6);
   padding: 10px auto;
   border: 1px solid #7F7F7F;
-  padding: 2px 15px;
+  padding: 5px 15px;
   font-size: 19px;
 }
 .form-buttons:hover {
@@ -127,7 +132,7 @@ max-width: 105%;
   background-color: rgba(255,255,255,0.8);
   padding: 10px auto;
   border: 1px solid #7F7F7F;
-  padding: 2px 15px;
+  padding: 4px 15px;
   color: black;
   font-size: 17px;
 }

@@ -38,6 +38,9 @@ let month = months[now.getMonth()];
 
 currentTime.innerHTML = `${hours}:${minutes} ${day} ${month} ${date}, ${year}`;
 
+
+
+
 // C to F
 function toF() {
   convertToF.style.fontSize = "40px";
@@ -97,6 +100,10 @@ convertToC.addEventListener("click", toC);
 //display current city temp
 function showCurrentCity(event) {
   event.preventDefault();
+
+  //clear search input city, if any
+  let localTime = document.querySelector("#local-time");
+  localTime.innerHTML = "";
 
   function showWeather(response) {
 
@@ -467,6 +474,7 @@ function showInputTemp(event) {
         "0" + date2.getMinutes()
       ).slice(-2)}`;*/
       sunset.innerHTML = convertDateSun(date2);
+    
 
       function convertDateSun(timestamp) {
 
@@ -500,7 +508,7 @@ function showInputTemp(event) {
         }
 
         let hours = now.getHours() + toUTC + offset / 3600;
-        let minutes = now.getMinutes() + toUTC + offset / 3600;
+        let minutes = now.getMinutes();
         
         if (minutes < 10) {
           minutes = `0${minutes}`;
@@ -514,8 +522,42 @@ function showInputTemp(event) {
       }
 
 
-      test = date2.getTime();
+      //local time
 
+      //convert from est/edt to utc
+
+      //est or edt
+      let now = new Date();
+
+      let month = months[now.getMonth()];
+
+      if (month == "Nov" || month == "Dec" || month == "Jan" || month == "Feb" || month == "Mar") {
+        toUTC = 5;
+      } else {
+        toUTC = 4;
+      }
+
+      let hoursLocal = now.getHours() + toUTC + offset / 3600;
+      let minutesLocal = now.getMinutes();
+      
+      if (minutesLocal < 10) {
+        minutesLocal = `0${minutesLocal}`;
+      }
+      
+      if (hoursLocal < 10) {
+        hoursLocal = `0${hoursLocal}`;
+      }
+
+      let localTime = document.querySelector("#local-time");
+      localTime.innerHTML = `${hoursLocal}:${minutesLocal} in`;
+
+      //console.log(hoursLocal);
+      //console.log(minutesLocal);
+
+
+     
+
+      // today icon
 
       let todayIcon = document.querySelector("#today");
 
@@ -690,7 +732,7 @@ function showInputTemp(event) {
       background.play();
         
 
-      console.log(response.data);
+      //console.log(response.data);
 
     }
 
