@@ -543,10 +543,14 @@ function showInputTemp(event) {
       if (minutesLocal < 10) {
         minutesLocal = `0${minutesLocal}`;
       }
+
+      if (hoursLocal > 23) {
+        hoursLocal = hoursLocal -24;
+      }
       
       if (hoursLocal < 10) {
         hoursLocal = `0${hoursLocal}`;
-      }
+      } 
 
       let localTime = document.querySelector("#local-time");
       localTime.innerHTML = `${hoursLocal}:${minutesLocal} in`;
